@@ -120,7 +120,7 @@ module.exports = function(animation){
 
         leave: function(){
             this.setState({
-                hiddn: true
+                hidden: true
             });
             this.props.onHide();
         },
