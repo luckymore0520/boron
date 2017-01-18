@@ -38,7 +38,7 @@ module.exports = function(animation){
             return {
                 willHidden: false,
                 hidden: true
-            };
+            }
         },
 
         hasHidden: function(){
@@ -60,7 +60,7 @@ module.exports = function(animation){
 
         handleBackdropClick: function() {
             if (this.props.closeOnClick) {
-                this.hide("backdrop");
+                this.hide();
             }
         },
 
@@ -99,30 +99,30 @@ module.exports = function(animation){
                 }
             }
 
-            var backdrop = this.props.backdrop? <div style={backdropStyle} onClick={this.props.closeOnClick? this.handleBackdropClick: null} />: undefined;
+            var backdrop = this.props.backdrop? React.createElement("div", {style: backdropStyle, onClick: this.props.closeOnClick? this.handleBackdropClick: null}): undefined;
 
             if(willHidden) {
                 var node = this.refs[ref];
                 this.addTransitionListener(node, this.leave);
             }
 
-            return (<span>
-                <div ref="modal" style={modalStyle} className={this.props.className}>
-                    {sharp}
-                    <div ref="content" tabIndex="-1" style={contentStyle}>
-                        {this.props.children}
-                    </div>
-                </div>
-                {backdrop}
-             </span>)
+            return (React.createElement("span", null, 
+                React.createElement("div", {ref: "modal", style: modalStyle, className: this.props.className}, 
+                    sharp, 
+                    React.createElement("div", {ref: "content", tabIndex: "-1", style: contentStyle}, 
+                        this.props.children
+                    )
+                ), 
+                backdrop
+             ))
             ;
         },
 
         leave: function(){
             this.setState({
-                hidden: true
+                hiddn: true
             });
-            this.props.onHide(this.state.hideSource);
+            this.props.onHide();
         },
 
         enter: function(){
@@ -131,7 +131,7 @@ module.exports = function(animation){
 
         show: function(){
             if (!this.hasHidden()) return;
-
+            document.body.style.overflow="hidden";
             this.setState({
                 willHidden: false,
                 hidden: false
@@ -144,15 +144,11 @@ module.exports = function(animation){
             }.bind(this), 0);
         },
 
-        hide: function(source){
+        hide: function(){
             if (this.hasHidden()) return;
-
-            if (!source) {
-                source = "hide";
-            }
+            document.body.style.overflow="auto";
 
             this.setState({
-                hideSource: source,
                 willHidden: true
             });
         },
@@ -161,20 +157,14 @@ module.exports = function(animation){
             if (this.hasHidden())
                 this.show();
             else
-                this.hide("toggle");
+                this.hide();
         },
 
         listenKeyboard: function(event) {
-            (typeof(this.props.keyboard)=="function")
-                ?this.props.keyboard(event)
-                :this.closeOnEsc(event);
-        },
-
-        closeOnEsc: function(event){
             if (this.props.keyboard &&
                     (event.key === "Escape" ||
                      event.keyCode === 27)) {
-                this.hide("keyboard");
+                this.hide();
             }
         },
 
@@ -186,4 +176,4 @@ module.exports = function(animation){
             window.removeEventListener("keydown", this.listenKeyboard, true);
         }
     });
-};
+}

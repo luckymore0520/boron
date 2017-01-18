@@ -1,4 +1,4 @@
-Boron  [![npm version](https://badge.fury.io/js/boron.svg)](http://badge.fury.io/js/boron)
+Boron
 =====
 
 [![Pair on this](https://tf-assets-staging.s3.amazonaws.com/badges/thinkful_repo_badge.svg)](http://start.thinkful.com/react/?utm_source=github&utm_medium=badge&utm_campaign=boron)
@@ -42,16 +42,11 @@ var Example = React.createClass({
     hideModal: function(){
         this.refs.modal.hide();
     },
-
-    callback: function(event){
-        console.log(event);
-    },
-
     render: function() {
         return (
             <div>
                 <button onClick={this.showModal}>Open</button>
-                <Modal ref="modal" keyboard={this.callback}>
+                <Modal ref="modal">
                     <h2>I am a dialog</h2>
                     <button onClick={this.hideModal}>Close</button>
                 </Modal>
@@ -64,24 +59,14 @@ var Example = React.createClass({
 ## Props
 
 * className - Add custom class name.
-* keyboard - Receive a callback function or a boolean to choose to close the modal when escape key is pressed.
+* keyboard - Close the modal when escape key is pressed.
 * backdrop - Includes a backdrop element.
 * closeOnClick - Close the backdrop element when clicked.
 * onShow - Show callback.
-* onHide - Hide callback. Argument is the source of the hide action, one of:
- * hide - hide() method is the cause of the hide.
- * toggle - toggle() method is the cause of the hide
- * keyboard - keyboard (escape key) is the cause of the hide
- * backdrop - backdrop click is the cause of the hide
- * [any] - custom argument passed by invoking code into the hide() method when called directly.
+* onHide - Hide callback.
 * modalStyle - CSS styles to apply to the modal
 * backdropStyle - CSS styles to apply to the backdrop
 * contentStyle - CSS styles to apply to the modal's content
-
-Note: If the hide() method is called directly, a custom source string can be
-passed as the argument, as noted above. For example, this might be useful if
-if multiple actions could cause the hide and it was desirable to know which of those
-actions was the trigger for the given onHide callback).
 
 # Custom Styles
 Objects consisting of CSS properties/values can be passed as props to the Modal component.
@@ -171,7 +156,3 @@ var Example = React.createClass({
 ![IE](https://raw.github.com/alrra/browser-logos/master/internet-explorer/internet-explorer_48x48.png) | ![Chrome](https://raw.github.com/alrra/browser-logos/master/chrome/chrome_48x48.png) | ![Firefox](https://raw.github.com/alrra/browser-logos/master/firefox/firefox_48x48.png) | ![Opera](https://raw.github.com/alrra/browser-logos/master/opera/opera_48x48.png) | ![Safari](https://raw.github.com/alrra/browser-logos/master/safari/safari_48x48.png)
 --- | --- | --- | --- | --- |
 IE 10+ ✔ | Chrome 4.0+ ✔ | Firefox 16.0+ ✔ | Opera 15.0+ ✔ | Safari 4.0+ ✔ |
-
-## License
-
-Boron is [MIT licensed](./LICENSE).

@@ -12,6 +12,7 @@ var animation = {
         animationTimingFunction: 'ease-out'
     },
     showContentAnimation: insertKeyframesRule({
+
         '0%': {
             opacity: 0,
             transform: 'translate3d(calc(-100vw - 50%), 0, 0)'
@@ -27,6 +28,7 @@ var animation = {
     }),
 
     hideContentAnimation: insertKeyframesRule({
+
         '0%': {
             opacity: 1,
             transform: 'translate3d(0, 0, 0)'
